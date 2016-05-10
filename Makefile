@@ -3,6 +3,9 @@
 
 all: ./document.pdf ./Makefile
 
+./tmp/*.sty:
+	for i in ls ./sty; do ln -s ./sty/$$i ./tmp/$$i; done
+
 ./document.pdf: ./tmp/out.pdf
 	cp ./tmp/out.pdf ./document.pdf
 
@@ -36,10 +39,10 @@ all: ./document.pdf ./Makefile
 ./tmp/out.bcf: ./tmp/bibliography.bib ./tmp/out.aux
 ./tmp/out.idx: ./tmp/out.aux
 
-./tmp/out.aux: ./tmp/out.tex
+./tmp/out.aux: ./tmp/out.tex ./tmp/*.sty
 	cd ./tmp/ && xelatex out.tex 1>/dev/null 2>/dev/null
 
-./tmp/out.pdf: ./tmp/out.tex ./tmp/out.bbl ./tmp/out.ind
+./tmp/out.pdf: ./tmp/out.tex ./tmp/out.bbl ./tmp/out.ind ./tmp/*.sty
 	cd ./tmp/ && xelatex out.tex 1>/dev/null 2>/dev/null
 	cd ./tmp/ && xelatex out.tex
 
