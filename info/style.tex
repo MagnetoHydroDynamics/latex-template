@@ -1,3 +1,32 @@
 
+\setlength\parindent{0pt}
+\setlength\parskip{0.5em}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\renewcommand\thesection{}
+\renewcommand\thesubsection{}
+\renewcommand\thesubsubsection{}
+
+\pagestyle{fancyplain}
 \fancyhf{}
-\
+
+\makeatletter
+\fancyhf[HRE,HRO]{%
+\@author~\\ %
+\@title%
+}
+
+\fancyhf[FLE,FLO]{%
+\@date%
+}
+\makeatother
+
+\fancyhf[FRE,FRO]{%
+\thepage\ / \pageref{LastPage}%
+}

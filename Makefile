@@ -6,12 +6,9 @@ all: ./document.pdf ./Makefile
 ./document.pdf: ./tmp/out.pdf
 	cp ./tmp/out.pdf ./document.pdf
 
-./tmp/:
-	mkdir tmp
-
-./tmp/mkdn.tex: ./tmp/
+./tmp/mkdn.tex: ./body/*.mkdn
 	echo -n > ./tmp/mkdn.tex
-	pandoc ./text/*.mkdn -RS -o ./tmp/mkdn.tex -f markdown -t latex
+	pandoc ./body/*.mkdn -RS -o ./tmp/mkdn.tex -f markdown -t latex --implicit_figures --footnotes || true
 
 ./tmp/out.tex: ./info/author.tex ./info/style.tex ./info/packages.tex ./tmp/mkdn.tex ./tmp/abstract.tex
 	echo \\\\documentclass[a4paper,11pt,notitlepage]{article} > ./tmp/out.tex
@@ -23,11 +20,11 @@ all: ./document.pdf ./Makefile
 	echo \\\maketitle >> ./tmp/out.tex
 	cat ./tmp/abstract.tex 1>> ./tmp/out.tex 2>/dev/null || true
 	echo \\\\tableofcontents >> ./tmp/out.tex
-	echo \\\\newpage >> ./tmp/out.tex
 	cat ./tmp/mkdn.tex >> ./tmp/out.tex 
-	echo \\\\newpage >> ./tmp/out.tex
 	echo \\\\printbibliography >> ./tmp/out.tex
 	echo \\\\printindex >> ./tmp/out.tex
+	echo \\\\listoftables >> ./tmp/out.tex
+	echo \\\\listoffigures >> ./tmp/out.tex
 	echo \\\\end{document} >> ./tmp/out.tex
 
 ./tmp/out.bbl: ./tmp/out.bcf
