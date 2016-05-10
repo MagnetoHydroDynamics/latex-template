@@ -1,0 +1,1 @@
+This repository contains all the shitty boilerplate latex I use.
