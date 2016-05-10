@@ -1,1 +1,1 @@
-This repository contains all the shitty boilerplate latex I use.
+This is a repository for automatically creating nice latex articles.
